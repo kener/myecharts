@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:1000px;margin:0 auto;border:1px solid #ccc"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main'), 'macarons'); 
+        
+        var mapItemStyle = {
+            normal: {
+                label: {
+                    show: true,
+                    formatter: function(name, value) {
+                        value = (value + '').replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
+                        return name + '互联网人口\n' + value + ' 万';
+                    },
+                    textStyle: {
+                        color: '#333',
+                        fontSize: 14
+                    }
+                }
+            },
+            emphasis: {
+                label: {
+                    show: true
+                }
+            }
+        };
+
+        var pieItemStyle = {
+            normal: {
+                label:{
+                    formatter: function(params) {
+                        var res =  params.percent > 20 ? (params.name + '\n') : '';
+                        return res + params.percent + '%';
+                    }
+                },
+                labelLine: {
+                    length:5
+                }
+            }
+         };
+        var option = {
+            title : {
+                text : '2011 中美日三国电子商务对比（使用频率）',
+                subtext : 'from ebrun',
+                sublink : 'http://www.ebrun.com/20121031/59681.shtml',
+                x : 'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                showDelay: 0,
+                transitionDuration: 0.2,
+                formatter : '{a}<br/>{b} : {d}%'
+            },
+            legend: {
+                show : true,
+                y: 330,
+                data: ['1年1次', '半年1次', '2-3个月1次', '每月1次', '每月2-3次', '每周1-2次', '每周3-5次']
+            },
+            dataRange: {
+                orient: 'horizontal',
+                x : 'center',
+                y: 'bottom',
+                min: 0,
+                max: 50000,
+                splitNumber: 0,            // 分割段数，默认为5
+                text:['50, 000万','互联网人口'],  
+                itemWidth:40,
+                color: ['orangered','yellow','lightskyblue']
+            },
+            series : [
+                {
+                    name: 'USA',
+                    type: 'map',
+                    mapType: 'world|United States of America',
+                    mapLocation: {x:'10.5%',height:'16.5%'},
+                    tooltip: {show:false},
+                    itemStyle: mapItemStyle,
+                    hoverable: false,
+                    nameMap: {
+                        'United States of America':'美国'
+                    },
+                    data:[
+                        {name : 'United States of America', value : 24520}
+                    ]
+                },    
+                {
+                    name: 'China',
+                    type: 'map',
+                    mapType: 'world|China',
+                    mapLocation: {x:'46%',height:'20%'},
+                    itemStyle: mapItemStyle,
+                    tooltip: {show:false},
+                    hoverable: false,
+                    nameMap: {
+                        'China':'中国'
+                    },
+                    data:[
+                        {name : 'China', value : 51310}
+                    ]
+                },
+                {
+                    name: 'Japan',
+                    type: 'map',
+                    mapType: 'world|Japan',
+                    mapLocation: {x:'80%',height:'20%'},
+                    itemStyle: mapItemStyle,
+                    tooltip: {show:false},
+                    hoverable: false,
+                    nameMap: {
+                        'Japan':'日本'
+                    },
+                    data:[
+                        {name : 'Japan', value : 9610}
+                    ]
+                },
+
+                // 饼图
+                {
+                 name: '美国电子商务使用频率',
+                 type: 'pie',
+                 center: ['16%', '49%'],
+                 radius: [70, 80],
+                 itemStyle: pieItemStyle,
+                 data: [
+                    {name:'1年1次', value:5.1},
+                    {name:'半年1次', value:9.8},
+                    {name:'2-3个月1次', value:20.8},
+                    {name:'每月1次', value:19.6},
+                    {name:'每月2-3次', value:26.9},
+                    {name:'每周1-2次', value:11.2},
+                    {name:'每周3-5次', value:6.6},
+                 ]
+                },
+                {
+                 name: '中国电子商务使用频率',
+                 type: 'pie',
+                 center: ['51%', '49%'],
+                 radius: [70, 80],
+                 itemStyle: pieItemStyle,
+                 data: [
+                    {name:'1年1次', value:0.7},
+                    {name:'半年1次', value:3.9},
+                    {name:'2-3个月1次', value:9.8},
+                    {name:'每月1次', value:14},
+                    {name:'每月2-3次', value:29.6},
+                    {name:'每周1-2次', value:30.7},
+                    {name:'每周3-5次', value:11.4},
+                 ]
+                },
+                {
+                 name: '日本电子商务使用频率',
+                 type: 'pie',
+                 center: ['83%', '49%'],
+                 radius: [70, 80],
+                 itemStyle: pieItemStyle,
+                 data: [
+                    {name:'1年1次', value:6},
+                    {name:'半年1次', value:9.9},
+                    {name:'2-3个月1次', value:23.3},
+                    {name:'每月1次', value:27.9},
+                    {name:'每月2-3次', value:25.6},
+                    {name:'每周1-2次', value:6.4},
+                    {name:'每周3-5次', value:1},
+                 ]
+               }
+            ]
+        }
+                            
+
+        // 为echarts对象加载数据 
+        myChart.setOption(option);
+        window.onresize = myChart.resize;
+    </script>
+</body>

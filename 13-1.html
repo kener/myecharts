@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body style="background-color:#1b1b1b">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:500px;"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {  
+            backgroundColor: '#1b1b1b',
+            toolbox: {  
+                show : true,  
+                feature : {  
+                    saveAsImage : {show: true}  
+                }  
+            },  
+            series : [  
+                {  
+                    name:'速度MPH',  
+                    type:'gauge',  
+                    center:['50%','50%'],  
+                    radius:'85%',  
+                    min:0,  
+                    max:120,  
+                    startAngle:180,  
+                    endAngle:-45,  
+                    splitNumber:12,  
+                    axisLine: {            // 坐标轴线  
+                        lineStyle: {       // 属性lineStyle控制线条样式  
+                            color: [[0.6, '#1e90ff'],[0.8, 'orange'],[1, 'red']],
+                            width: 0,  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    axisLabel: {            // 坐标轴小标记  
+                        textStyle: {       // 属性lineStyle控制线条样式  
+                            fontSize: 20,
+                            fontWeight: 'bolder',  
+                            color: '#fff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10
+                        }  
+                    },  
+                    axisTick: {            // 坐标轴小标记  
+                        length :15,        // 属性length控制线长  
+                        lineStyle: {       // 属性lineStyle控制线条样式  
+                            color: '#1e90ff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10,  
+                            width:3  
+                        }  
+                    },  
+                    splitLine: {           // 分隔线  
+                        length :20,         // 属性length控制线长  
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式  
+                            width:3,  
+                            color: '#fff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    pointer: {           // 分隔线  
+                        shadowColor : '#fff', //默认透明  
+                        shadowBlur: 10,  
+                        width:5  
+                    },  
+                    title : {  
+                        show:true,  
+                        offsetCenter:['-95%','30'],  
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                            fontWeight: 'bolder',  
+                            fontSize: 30,  
+                            fontStyle: 'italic',  
+                            color: '#fff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10
+                        }  
+                    },  
+                    detail : {  
+                        show:true,  
+                        shadowColor : '#fff', //默认透明  
+                        shadowBlur: 30,
+                        offsetCenter: ['-50%', '45%'],       // x, y，单位px  
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                            fontWeight: 'bolder',  
+                            color: '#fff',
+                            fontSize: 70 
+                        },
+                        formatter: function(value) {
+                            return value.toFixed(2)
+                        }
+                    },  
+                    data:[{value: 40, name: 'MPH'}]  
+                },  
+                {  
+                    name:'速度km/h',  
+                    type:'gauge',  
+                    center:['50%','50%'],  
+                    radius:'40%',  
+                    min:0,  
+                    max:180,  
+                    startAngle:180,  
+                    endAngle:-45,  
+                    splitNumber:9,  
+                    axisLine: {            // 坐标轴线  
+                        lineStyle: {       // 属性lineStyle控制线条样式  
+                            color: [[0.6, '#228b22'],[0.8, 'orange'],[1, 'red']],
+                            width: 0,
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    axisLabel: {            // 坐标轴小标记  
+                        textStyle: {       // 属性lineStyle控制线条样式  
+                            fontWeight: 'bolder',  
+                            color: '#fff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    axisTick: {             
+                        splitNumber:2,      // 坐标轴小标记  
+                        length :15,        // 属性length控制线长  
+                        lineStyle: {       // 属性lineStyle控制线条样式  
+                            width:3,  
+                            color: '#00FFFF',  
+                            shadowColor : '#00FFFF',   
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    splitLine: {           // 分隔线  
+                        length :15,         // 属性length控制线长  
+                        lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式  
+                            width:3,  
+                            color: '#00FFFF',  
+                            shadowColor : '#00FFFF',   
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    pointer: {           // 分隔线  
+                        shadowColor : '#fff', //默认透明  
+                        shadowBlur: 10,  
+                        width:5,
+                        color: '#228b22'
+                    },  
+                    title : {  
+                        show:true,  
+                        offsetCenter:['-95%','30'],  
+                        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                            fontWeight: 'bolder',  
+                            fontSize: 15,  
+                            fontStyle: 'italic',  
+                            color: '#fff',  
+                            shadowColor : '#fff', //默认透明  
+                            shadowBlur: 10  
+                        }  
+                    },  
+                    detail : {  
+                        show:true,
+                        offsetCenter: ['-25%', 20],       // x, y，单位px  
+                        textStyle: {                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE  
+                            fontWeight: 'bolder',  
+                            color: '#fff',
+                            fontSize: 20 
+                        },
+                        formatter: function(value) {
+                            return value.toFixed(2)
+                        }
+                    },  
+                    data:[{value: 60, name: 'km/h'}]  
+                }
+            ]  
+        };  
+          
+        // 为echarts对象加载数据 
+        myChart.setOption(option);
+        window.onresize = myChart.resize;
+
+        timeTicket = setInterval(function (){  
+            var value = Math.random() * 120;  
+            option.series[0].data[0].value = value;  
+            option.series[1].data[0].value = value * 3 / 2; 
+            myChart.setOption(option,true);  
+        },2000);
+    </script>
+</body>

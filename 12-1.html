@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:500px;width:600px;border:1px solid #ccc"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+            title : {
+                text: '产品销量',
+                subtext: '纯属虚构',
+                x: 'center',
+                y: 'center'
+            },
+            tooltip : {
+                trigger: 'item'
+            },
+            legend: {
+                orient: 'vertical',
+                x: 25,
+                y: 'center',
+                itemGap: 20,
+                data:['产品A','产品B','产品C','产品D'],
+                selectedMode: false
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                x: 'right',
+                y: 'center',
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            series : [
+                {
+                    name:'总',
+                    type:'pie',
+                    roseType: 'area',
+                    radius: [40, 120],
+                    itemStyle: {
+                        normal:{
+                            label:{
+                                position: 'inner',
+                                distance: 0.4
+                            },
+                            labelLine: {
+                                length: 30,
+                                lineStyle: {
+                                    width: 1.5
+                                }
+                            }
+                        },
+                        emphasis: {
+                            label:{
+                                show:true,
+                                distance: 0.45
+                            }
+                        }
+                    },
+                    data:[
+                      {name:'产品A', value: 100},
+                      {name:'产品B', value: 80},
+                      {name:'产品C', value: 60},
+                      {name:'产品D', value: 40}
+                    ]
+                },
+                {
+                    name:'产品A',
+                    type:'pie',
+                    radius: [20, 50],
+                    center: ['75%', '15%'],
+                    itemStyle: {
+                        normal: {
+                            color: function(params) {
+                                //'#ff7f50','#87cefa','#da70d6','#32cd32',
+                                return zrender.tool.color.alpha('#ff7f50', (10 - params.dataIndex) * 0.2 - 1)
+                            },
+                            label: {
+                                textStyle: {
+                                    color: '#ff7f50'
+                                }
+                            },
+                            labelLine: {
+                                length: 0,
+                                lineStyle: {
+                                    color: '#ff7f50'
+                                }
+                            }
+                        }
+                    },
+                    data:[
+                      {name:'产品A-1', value: 60},
+                      {name:'产品A-2', value: 30},
+                      {name:'产品A-3', value: 10}
+                    ]
+                },
+                {
+                    name:'产品B',
+                    type:'pie',
+                    radius: [20, 50],
+                    center: ['75%', '85%'],
+                    itemStyle: {
+                        normal: {
+                            color: function(params) {
+                                return zrender.tool.color.alpha('#87cefa', (10 - params.dataIndex) * 0.2 - 1)
+                            },
+                            label: {
+                                textStyle: {
+                                    color: '#87cefa'
+                                }
+                            },
+                            labelLine: {
+                                length: 0,
+                                lineStyle: {
+                                    color: '#87cefa'
+                                }
+                            }
+                        }
+                    },
+                    data:[
+                      {name:'产品B-1', value: 30},
+                      {name:'产品B-2', value: 20},
+                      {name:'产品B-3', value: 20},
+                      {name:'产品B-4', value: 10}
+                    ]
+                },
+                {
+                    name:'产品C',
+                    type:'pie',
+                    radius: [20, 50],
+                    center: ['25%', '85%'],
+                    itemStyle: {
+                        normal: {
+                            color: function(params) {
+                                return zrender.tool.color.alpha('#da70d6', (10 - params.dataIndex) * 0.2 - 1)
+                            },
+                            label: {
+                                textStyle: {
+                                    color: '#da70d6'
+                                }
+                            },
+                            labelLine: {
+                                length: 0,
+                                lineStyle: {
+                                    color: '#da70d6'
+                                }
+                            }
+                        }
+                    },
+                    data:[
+                      {name:'产品C-1', value: 25},
+                      {name:'产品C-2', value: 20},
+                      {name:'产品C-3', value: 10}
+                    ]
+                },
+                {
+                    name:'产品D',
+                    type:'pie',
+                    radius: [20, 50],
+                    center: ['25%', '15%'],
+                    itemStyle: {
+                        normal: {
+                            color: function(params) {
+                                return zrender.tool.color.alpha('#32cd32', (10 - params.dataIndex) * 0.2 - 1)
+                            },
+                            label: {
+                                textStyle: {
+                                    color: '#32cd32'
+                                }
+                            },
+                            labelLine: {
+                                length: 0,
+                                lineStyle: {
+                                    color: '#32cd32'
+                                }
+                            }
+                        }
+                    },
+                    data:[
+                      {name:'产品D-1', value: 20},
+                      {name:'产品D-2', value: 10},
+                      {name:'产品D-3', value: 5},
+                      {name:'产品D-4', value: 5}
+                    ]
+                }
+            ]
+        };
+                            
+
+        // 为echarts对象加载数据 
+        myChart.setOption(option);
+    </script>
+</body>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:100%"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+            title : {
+                text: '某产品销售',
+                subtext: '纯属虚构'
+            },
+            legend: {
+                data:['预期销售','实际销售']
+            },
+            grid: {
+                borderWidth:0
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    axisLine: {
+                        lineStyle: {
+                            width: 28,
+                            color:'rgba(0,150,255,0.3)'
+                        }
+                    },
+                    splitLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        length: 26,
+                        lineStyle: {
+                            width: 2,
+                            color: '#8ff'
+                        }
+                    },
+                    data : ['周一','周二','周三','周四','周五','周六','周日']
+                },
+                {
+                    type : 'category',
+                    show: false,
+                    data : ['周一','周二','周三','周四','周五','周六','周日']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLine: {show:false},
+                    axisLabel: {show:false},
+                    splitLine: {show:false},
+                    splitArea:{
+                        show: true,
+                        areaStyle:{
+                            color: [
+                                'rgba(0,0,0,0)',
+                                'rgba(150,200,250,0.1)'
+                            ]
+                        }
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'预期销售',
+                    type:'bar',
+                    barCategoryGap:'50%',
+                    itemStyle:{
+                        normal:{
+                            color:'rgba(0,150,255,0.3)',
+                            barBorderRadius: [30, 30 ,0, 0],
+                            label:{
+                                show: true,
+                                position: 'insideTop',
+                                textStyle: {
+                                    fontSize: 20
+                                }
+                            }
+                        },
+                        emphasis: {
+                            color:'rgba(0,150,255,0.1)',
+                            barBorderRadius: [30, 30 ,0, 0]
+                        }
+                    },
+                    data:[9, 9, 11, 10, 9, 8, 7]
+                },
+                {
+                    name:'实际销售',
+                    type:'bar',
+                    xAxisIndex:1,
+                    barCategoryGap:'70%',
+                    itemStyle:{
+                        normal:{
+                            color:'rgba(00,200,100,0.5)',
+                            barBorderRadius: [10, 10 ,30, 30],
+                            label:{
+                                show: true,
+                                textStyle: {
+                                    fontSize: 20,
+                                    color: '#999'
+                                }
+                            }
+                        },
+                        emphasis: {
+                            color:'rgba(00,200,100,0.1)',
+                            barBorderRadius: [10, 10 ,30, 30]
+                        }
+                    },
+                    data:[11, 11, 15, 13, 12, 13, 10]
+                }
+            ]
+        };
+                            
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+        window.onresize = myChart.resize;
+    </script>
+</body>

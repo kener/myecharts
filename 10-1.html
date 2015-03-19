@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:100%"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+             title: {
+                text: '阶梯瀑布图',
+                subtext: 'K线模拟'
+            },
+            tooltip : {
+                trigger: 'axis',
+                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                    type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                },
+                formatter: function (params) {
+                    var tar = params[0];
+                    var delta = tar.value[1] - tar.value[0];
+                    if (delta > 0) {
+                        return tar.name + '月 ' + tar.seriesName + '<br/>---<br/>' + '增加 ' + delta;
+                    }
+                    else {
+                        return tar.name + '月 ' + tar.seriesName + '<br/>---<br/>' + '减少 ' + -delta;
+                    }
+                }
+            },
+            legend: {
+                data:['收支变化']
+            },
+            grid: {
+                borderWidth:0
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['1','2','3','4','5','6','7','8','9','10','11','12'],
+                    axisLabel: {
+                        formatter: '{value}月'
+                    }
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value'
+                }
+            ],
+            series : [
+                {
+                    name:'收支变化',
+                    type:'k',
+                     itemStyle: {
+                        normal: {
+                            color: 'red',           // 阳线填充颜色
+                            color0: 'lightgreen',   // 阴线填充颜色
+                            lineStyle: {
+                                width: 2,
+                                color: 'orange',    // 阳线边框颜色
+                                color0: 'green'     // 阴线边框颜色
+                            }
+                        },
+                        emphasis: {
+                            color: 'orange',           // 阳线填充颜色
+                            color0: 'green',   // 阴线填充颜色
+                            lineStyle: {
+                                width: 2,
+                                color: 'red',    // 阳线边框颜色
+                                color0: 'lightgreen'     // 阴线边框颜色
+                            }
+                        }
+                    },
+                    data:[
+                        [0, 900, 0, 900],
+                        [900, 1245, 900, 1245],
+                        [1245, 1500, 1245, 1500],
+                        [1500, 1300, 1300, 1500],
+                        [1300, 1100, 1100, 1300],
+                        [1100, 1350, 1100, 1350],
+                        [1350, 1520, 1350, 1520],
+                        [1520, 1600, 1520, 1600],
+                        [1600, 1480, 1480, 1600],
+                        [1480, 1300, 1300, 1480],
+                        [1300, 1000, 1000, 1300],
+                        [1000, 1200, 1000, 1200]
+                    ]
+                }
+            ]
+        };
+                            
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+        window.onresize = myChart.resize;
+    </script>
+</body>

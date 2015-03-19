@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+            title : {
+                text: '产品销量',
+                subtext: '纯属虚构'
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['产品A','产品B']
+            },
+            grid:{
+                borderWidth:0
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap : true,
+                    splitLine:{show:false},
+                    axisTick:{
+                        length:24,
+                        lineStyle:{
+                            color:'#48b',
+                            width:2
+                        }
+                    },
+                    data : ['周一','周二','周三','周四','周五','周六','周日']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLine: {show:false},
+                    splitNumdber:5,
+                    splitLine:{
+                    lineStyle:{
+                        type: 'dotted',
+                            color:[ 
+                                'rgba(0,0,0,0)', 
+                                'orange',
+                                '#ccc', '#ccc', 
+                                'blue', '#ccc'
+                            ]
+                        }
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'产品A',
+                    type:'line',
+                    symbol: 'emptyArrow',
+                    symbolRotate: -90,
+                    symbolSize:8,
+                    data:[
+                      11, 11, 
+                       {
+                          value:15,
+                          symbol:'emptyHeart',
+                          symbolSize:10,
+                          symbolRotate:0,
+                          itemStyle: {
+                            normal: {
+                                label:{
+                                    show:true,
+                                    position:'bottom'
+                                }
+                            }
+                          }
+                       }, 
+                      13, 12, 13, 10
+                    ],
+                    itemStyle:{
+                        normal:{
+                            lineStyle:{
+                                type:'dashed'
+                            }
+                        }
+                    }
+                },
+                {
+                    name:'产品B',
+                    type:'line',
+                    data:[3, 5, 3, 5, 2, 3, 6],
+                    smooth:true,
+                    symbol: 'emptyCircle',
+                    symbolSize:5,
+                    itemStyle: {
+                        normal:{
+                            areaStyle: {
+                                color: 'rgba(255, 200, 100, 0.2)'
+                            },
+                            label:{
+                                show:true
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+                            
+
+        // 为echarts对象加载数据 
+        myChart.setOption(option);
+        window.onresize = myChart.resize;
+    </script>
+</body>

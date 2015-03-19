@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:100%"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+            color : [
+                'rgba(55, 200, 100, 0.5)',
+                'rgba(155, 200, 50, 0.5)',
+                'rgba(255, 200, 0, 0.5)',
+                'rgba(255, 150, 0, 0.5)',
+                'rgba(255, 69, 0, 0.5)',
+                'rgba(255, 0, 0, 0.6)',
+                'rgba(255, 0, 0, 0.8)'
+            ],
+            title : {
+                text: '他__牺牲生命，__出卖组织',
+                subtext: '这就叫代沟 (纯属虚构)',
+                sublink: 'http://weibo.com/1625152340/C7BcWmEEu'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}"
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            legend: {
+                data : ['自我实现','尊重','社交','安全','生理','Wifi','手机/iPad']
+            },
+            series : [
+                {
+                    name:'马斯洛需求层次理论',
+                    type:'funnel',
+                    x: '3%',
+                    width: '90%',
+                    min:95,
+                    max:100,
+                    minSize: '95%',
+                    sort:'ascending',
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                formatter: '{b}'
+                            },
+                            labelLine: {
+                                show : false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position:'inside',
+                                formatter: '马斯洛需求层次理论 {b}'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:96, name:'自我实现'},
+                        {value:97, name:'尊重'},
+                        {value:98, name:'社交'},
+                        {value:99, name:'安全'},
+                        {value:100, name:'生理'}
+                    ]
+                },
+                {
+                    name:'60后',
+                    type:'funnel',
+                    x: '3%',
+                    width: '25%',
+                    maxSize: '80%',
+                    sort: 'none',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 2,
+                            label: {
+                                show:false
+                            },
+                            labelLine: {
+                                show : false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position:'inside',
+                                formatter: '{a} {b} : {c}%'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:5, name:'自我实现'},
+                        {value:5, name:'尊重'},
+                        {value:5, name:'社交'},
+                        {value:80, name:'安全'},
+                        {
+                            value:100,
+                            name:'生理',
+                            itemStyle:{normal:{
+                                label: {
+                                    show:true,
+                                    position: 'inner',
+                                    formatter: '{a} 模型'
+                                }
+                            }}
+                        }
+                    ]
+                },
+                {
+                    name:'70/80后',
+                    type:'funnel',
+                    x: '28%',
+                    width: '25%',
+                    maxSize: '80%',
+                    sort: 'none',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 2,
+                            label: {
+                                show:false
+                            },
+                            labelLine: {
+                                show : false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position:'inside',
+                                formatter: '{a} {b} : {c}%'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:10, name:'自我实现'},
+                        {value:20, name:'尊重'},
+                        {value:30, name:'社交'},
+                        {value:80, name:'安全'},
+                        {
+                            value:100,
+                            name:'生理',
+                            itemStyle:{normal:{
+                                label: {
+                                    show:true,
+                                    position: 'inner',
+                                    formatter: '{a} 模型'
+                                }
+                            }}
+                        }
+                    ]
+                },
+                {
+                    name:'90/00后',
+                    type:'funnel',
+                    x: '46%',
+                    y2:5,
+                    width: '25%',
+                    maxSize: '80%',
+                    sort: 'none',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 2,
+                            label: {
+                                show:false
+                            },
+                            labelLine: {
+                                show : false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position:'inside',
+                                formatter: '{a} {b} : {c}%'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:50, name:'自我实现'},
+                        {value:60, name:'尊重'},
+                        {value:40, name:'社交'},
+                        {value:30, name:'安全'},
+                        {value:20, name:'生理'},
+                        {
+                            value:100,
+                            name:'Wifi',
+                            itemStyle:{normal:{
+                                label: {
+                                    show:true,
+                                    position: 'inner',
+                                    formatter: '{a} 模型'
+                                }
+                            }}
+                        }
+                    ]
+                },
+                {
+                    name:'10后',
+                    type:'funnel',
+                    x: '68%',
+                    y2:5,
+                    width: '25%',
+                    maxSize: '80%',
+                    sort: 'none',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 2,
+                            label: {
+                                show:false
+                            },
+                            labelLine: {
+                                show : false
+                            }
+                        },
+                        emphasis: {
+                            label: {
+                                position:'inside',
+                                formatter: '{a} {b} : {c}%'
+                            }
+                        }
+                    },
+                    data:[
+                        {value:80, name:'自我实现'},
+                        {value:5, name:'尊重'},
+                        {value:1, name:'社交'},
+                        {value:5, name:'安全'},
+                        {value:50, name:'生理'},
+                        {
+                            value:100,
+                            name:'手机/iPad',
+                            itemStyle:{normal:{
+                                label: {
+                                    show:true,
+                                    position: 'inner',
+                                    formatter: '{a} 模型'
+                                }
+                            }}
+                        }
+                    ]
+                }
+            ]
+        };
+                            
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+        window.onresize = myChart.resize;
+    </script>
+</body>

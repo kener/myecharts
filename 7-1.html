@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px;width:800px;border:1px solid #ccc"></div>
+    <!-- <img src="http://echarts.baidu.com/doc/asset/img/echarts-logo.png"> -->
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var option = {
+            title : {
+                text: '产品销量',
+                link: 'http://echarts.baidu.com',
+                x: 'center',
+                y: 'top',
+                padding: [5, 400],
+                backgroundColor: '#eee'
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                //orient: 'vertical',
+                x: 'center',
+                y: 50,
+                itemWidth: 25,
+                itemHeight: 20,
+                itemGap: 30,
+                formatter: function(name) {
+                    if (name == '产品A') {
+                        return name + '\n60%';
+                    }
+                    else if (name == '产品B'){
+                        return name + '\n40%';
+                    }
+                    else {
+                        return name + '\n市场占有率';
+                    }
+                },
+                data:[
+                    {
+                        name: '产品型号',
+                        icon : 'image://http://echarts.baidu.com/doc/asset/img/echarts-logo.png'
+                    },
+                    {
+                        name:'产品A',
+                        textStyle:{
+                            color: '#87cefa'
+                        }
+                    },
+                    {
+                        name:'产品B',
+                        textStyle:{
+                            color: '#da70d6'
+                        }
+                    }
+                ]
+            },
+            grid:{
+                borderWidth:0,
+                x: 10,
+                y: 90,
+                x2: 30,
+                y2: 30
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    boundaryGap:true,
+                    splitLine: {show:false},
+                    data : ['周一','周二','周三','周四','周五','周六','周日']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    position: 'right',
+                    axisLine: {show:false},
+                    splitLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        }
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'产品A',
+                    type:'line',
+                    symbol: 'emptyCircle',
+                    symbolSize:4,
+                    data:[
+                      13, 11, 8, 13, 12, 13, 10
+                    ]
+                },
+                {
+                    name:'产品B',
+                    type:'line',
+                    symbol: 'emptyCircle',
+                    symbolSize:4,
+                    data:[3, 5, 3, 5, 2, 3, 6]
+                }
+            ]
+        };
+                            
+
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+    </script>
+</body>

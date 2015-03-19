@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts基础教程</title>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('main')); 
+        
+        var evnColor = [
+            'rgba(255,0,0,0.5)', 'rgba(255,51,0,0.5)', 'rgba(255,102,0,0.5)', 'rgba(255,153,0,0.5)', 'rgba(255,204,0,0.5)',
+            'rgba(255,255,0,0.5)', 'rgba(204,229,0,0.5)', 'rgba(153,204,0,0.5)', 'rgba(102,178,0,0.5)', 'rgba(51,153,0,0.5)'
+        ];
+
+        var option = {
+            title: {
+                text : '地区发展水平',
+                subtext : '纯属虚构'
+            },
+            tooltip : {
+                trigger: 'axis',
+                showDelay : 0,
+                axisPointer:{
+                    show: true,
+                    type : 'cross'
+                },
+                formatter: function(params) {
+                    var res = params.seriesName + ' ' + params.name + '<br/>'
+                              + '人均收入：' + Math.round(params.data.value[0]) + ' 元/人<br/>'
+                              + '平均寿命：' + Math.round(params.data.value[1]) + ' 岁<br/>'
+                              + '常驻人口：' + Math.round(params.data.value[2]) + ' 百万<br/>'
+                              + '环境质量：' + params.data.value[3].toFixed(1);
+                    return res;
+                }
+            },
+            legend: {
+                data:['A国','B国','C国','D国']
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataZoom : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            xAxis : [
+                {
+                    type : 'value',
+                    scale: true,
+                    name: '人均收入'
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    scale: true,
+                    name: '平均寿命'
+                }
+            ],
+            series : [
+                {
+                    name:'A国',
+                    type:'scatter',
+                    symbol:'circle',
+                    symbolSize: function (value){
+                        return Math.round(value[2] / 20);
+                    },
+                    itemStyle:{normal:{
+                        borderWidth: 3,
+                        borderColor: '#77e3ff',
+                        color: function(params) {
+                            if (params.data) {
+                                return evnColor[Math.floor(params.data.value[3]/10)];
+                            }
+                            return '#77e3ff'
+                        }
+                    }},
+                    data: [
+                        {
+                            name: '地区1',
+                            // 数据维度：经济收入，寿命，人口，环境质量
+                            // 视觉编码：x，y，size，color
+                            value: [1000, 70, 400, 30]
+                        },
+                        {name:'地区2', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区3', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区4', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区5', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区6', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区7', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区8', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区9', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]},
+                        {name:'地区10', value:[Math.random()*1000+1000, Math.random()*10+60, Math.random()*500, Math.random()*100]}
+                    ]
+                },
+                {
+                    name:'B国',
+                    type:'scatter',
+                    symbol:'circle',
+                    symbolSize: function (value){
+                        return Math.round(value[2] / 20);
+                    },
+                    itemStyle:{normal:{
+                        borderWidth: 3,
+                        borderColor: '#ba77ff',
+                        color: function(params) {
+                            if (params.data) {
+                                return evnColor[Math.floor(params.data.value[3]/10)];
+                            }
+                            return '#ba77ff'
+                        }
+                    }},
+                    data: (function(){
+                        // 构造虚拟数据
+                        var d = [];
+                        for (var i = 0; i < 10; i++) {
+                            d.push({
+                                name:'地区' + (i + 1),
+                                value:[Math.random()*1500+1000, Math.random()*10+62, Math.random()*500, Math.random()*100]
+                            })
+                        }
+                        return d;
+                    })()
+                },
+                {
+                    name:'C国',
+                    type:'scatter',
+                    symbol:'circle',
+                    symbolSize: function (value){
+                        return Math.round(value[2] / 20);
+                    },
+                    itemStyle:{normal:{
+                        borderWidth: 3,
+                        borderColor: '#007fff',
+                        color: function(params) {
+                            if (params.data) {
+                                return evnColor[Math.floor(params.data.value[3]/10)];
+                            }
+                            return '#007fff'
+                        }
+                    }},
+                    data: (function(){
+                        // 构造虚拟数据
+                        var d = [];
+                        for (var i = 0; i < 20; i++) {
+                            d.push({
+                                name:'地区' + (i + 1),
+                                value:[Math.random()*2000+1000, Math.random()*10+63, Math.random()*500, Math.random()*100]
+                            })
+                        }
+                        return d;
+                    })()
+                },
+                {
+                    name:'D国',
+                    type:'scatter',
+                    symbol:'circle',
+                    symbolSize: function (value){
+                        return Math.round(value[2] / 20);
+                    },
+                    itemStyle:{normal:{
+                        borderWidth: 3,
+                        borderColor: '#aa0022',
+                        color: function(params) {
+                            if (params.data) {
+                                return evnColor[Math.floor(params.data.value[3]/10)];
+                            }
+                            return '#aa0022'
+                        }
+                    }},
+                    data: (function(){
+                        // 构造虚拟数据
+                        var d = [];
+                        for (var i = 0; i < 20; i++) {
+                            d.push({
+                                name:'地区' + (i + 1),
+                                value:[Math.random()*2600+1000, Math.random()*10+63, Math.random()*500, Math.random()*100]
+                            })
+                        }
+                        return d;
+                    })()
+                }
+            ]
+        };
+
+        // 为echarts对象加载数据 
+        myChart.setOption(option); 
+        window.onresize = myChart.resize;
+    </script>
+</body>
